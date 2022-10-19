@@ -30,7 +30,8 @@ img2gcode
     whiteZ: 0,
     blackZ: -2,
     safeZ: 2,
-    dirImg: __dirname + '/img-and-gcode/test.jpeg'
+    gcodeFile: 'output', // Name of gcode output file. Must be provided for Buffered Image.
+    image: __dirname + '/img-and-gcode/test.jpeg' // Or Buffer from base64 -> https://github.com/oliver-moran/jimp/issues/231
   }).then((data) => {
     console.log(data.config);
     console.log(data.dirgcode);
@@ -44,7 +45,8 @@ img2gcode
 - `scaleAxes` (number) Image height in mm. **default:** image.height equal mm
 - `deepStep` (number) Depth per pass. **default:** -1
 - `invest` { x: (boolean), y: (boolean) } **default:** {x: false, y: true}.
-- `dirImg` (string) Image path, accepts JPEG JPG PNG GIF formats.
+- `image` (string | Buffer) Image path, accepts JPEG JPG PNG GIF formats.
+- `gcodeFile` {string} GCode file output name. Must be provided for Buffered images. On file images, if not provided, the name will be {image_name}.gcode
 - `whiteZ` (number) White pixels. **default:** 0
 - `blackZ` (number) Maximum depth (Black pixels).
 - `safeZ` (number) Safe distance.
@@ -83,7 +85,7 @@ img2gcode
     blackZ: -2,
     safeZ: 1,
     info: "emitter", // "none" or "console" or "emitter"
-    dirImg: __dirname + "/img-and-gcode/test.png",
+    image: __dirname + "/img-and-gcode/test.png",
   })
   .on("log", (str) => {
     console.log(str);
@@ -114,7 +116,7 @@ const options = {
   blackZ: -3,
   safeZ: 1,
   info: "emitter",
-  dirImg: path.normalize(__dirname + imgFile),
+  image: path.normalize(__dirname + imgFile),
 };
 ```
 

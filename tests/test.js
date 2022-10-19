@@ -36,7 +36,7 @@ const options = {
   blackZ: -3,
   safeZ: 1,
   info: "emitter", // ["none" | "console" | "emitter"] default: "none"
-  dirImg: path.normalize(__dirname + imgFile)
+  image: path.normalize(__dirname + imgFile)
 };
 
 function imgToGCode(options) {
@@ -59,15 +59,15 @@ function imgToGCode(options) {
   });
 }
 console.time("img2gcode");
-// options.dirImg = path.normalize(__dirname + "/img-and-gcode/test.png");
+// options.image = path.normalize(__dirname + "/img-and-gcode/test.png");
 imgToGCode(options).then(() => {
   console.timeEnd("img2gcode");
 });
 
 // console.time("img2gcode");
-// options.dirImg = path.normalize(__dirname + "/img-and-gcode/test.jpeg");
+// options.image = path.normalize(__dirname + "/img-and-gcode/test.jpeg");
 // imgToGCode(options).then(() => {
-//   options.dirImg = path.normalize(__dirname + "/img-and-gcode/test.png");
+//   options.image = path.normalize(__dirname + "/img-and-gcode/test.png");
 //   imgToGCode(options).then(() => {
 //     console.timeEnd("img2gcode");
 //   });

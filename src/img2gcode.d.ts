@@ -34,7 +34,8 @@ declare namespace ImgToGCode {
     };
     deepStep?: number;
     imgSize?: string;
-    dirImg: string;
+    image: string | Buffer;
+    gcodeFile?: string;
     whiteZ?: number;
     blackZ: number;
     laser?: {

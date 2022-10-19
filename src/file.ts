@@ -50,8 +50,13 @@ class File {
     var self = this;
     return new Promise(function(fulfill, reject) {
       try {
-        let dirimg = path.resolve(config.dirImg),
+        let dirgcode = config.gcodeFile
+        let dirimg = config.gcodeFile
+        if (!Buffer.isBuffer(config.image) && !dirgcode) {
+          dirimg = path.resolve(config.image)
           dirgcode = dirimg.substring(0, dirimg.lastIndexOf(".")) + ".gcode";
+        }
+        
         self._gCodeInit.push(
           ";---> this code is for cnc-ino <---",
           `; ${dirimg}`,

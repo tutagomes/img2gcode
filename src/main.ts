@@ -57,14 +57,14 @@ export class Main extends EventEmitter {
   public start(config: ImgToGCode.Config): this {
     // Reset variables
     this.reSet();
-    if (this.isImg(path.extname(config.dirImg))) {
+    if (Buffer.isBuffer(config.image) || this.isImg(path.extname(config.image))) {
       (config.toolDiameter && typeof config.toolDiameter === "number") ||
         this.error("ToolDiameter undefined or is't number.");
       (config.blackZ && typeof config.blackZ === "number") ||
         this.error("Black distance z undefined or is't number.");
       (config.safeZ && typeof config.safeZ === "number") ||
         this.error("Safe distance z undefined or is't number.");
-      (config.dirImg && typeof config.dirImg === "string") ||
+      (config.image && (typeof config.image === "string" || Buffer.isBuffer(config.image))) ||
         this.error("Address undefined Image or is't string.");
       if (config.laser) {
         (typeof config.laser.commandPowerOn === "string" &&
@@ -91,8 +91,11 @@ export class Main extends EventEmitter {
         config.feedrate = { work: NaN, idle: NaN };
       }
       this._typeInfo = (typeof config.info === "string" && config.info) || "none";
-      this.log("-> Image: " + config.dirImg);
-
+      if (Buffer.isBuffer(config.image)) {
+        this.log("-> Loading image from Buffer: " + config.image);
+      } else {
+        this.log("-> Image from path: " + config.image);
+      }
       const self = this;
       this.run(config)
         .then(dirgcode => {
@@ -152,7 +155,8 @@ export class Main extends EventEmitter {
     let self = this;
 
     return new Promise((fulfill, reject) => {
-      Jimp.read(config.dirImg)
+      // @ts-ignore
+      Jimp.read(config.image)
         .then(image => {
           self.log("-> Openping and reading...");
           self._img.height = image.bitmap.height;
