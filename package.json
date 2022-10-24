@@ -7,7 +7,9 @@
   "scripts": {
     "build": "tsc --project ./src",
     "start": "npm run build; npm runtest",
-    "test": "node ./tests/test.js"
+    "test": "node ./tests/test.js",
+    "prepack": "tsc --project ./src",
+    "postinstall": "tsc --project ./src"
   },
   "repository": {
     "type": "git",
