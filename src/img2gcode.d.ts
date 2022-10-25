@@ -99,6 +99,6 @@ declare namespace ImgToGCode {
      *
      * @memberOf Main
      */
-    then(cb: { config: ImgToGCode.Config; dirgcode: string }): this;
+    then(cb: { config: ImgToGCode.Config; dirgcode: string, gcode: string[] }): this;
   }
 }

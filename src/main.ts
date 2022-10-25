@@ -1,7 +1,7 @@
 import Utilities from "./utilities";
 import Analyze from "./analyze";
 import Line from "./line";
-import File from "./file";
+import File, { saveFileResult } from "./file";
 import * as path from "path";
 import * as Jimp from "jimp";
 // const Jimp = require("jimp");
@@ -98,9 +98,9 @@ export class Main extends EventEmitter {
       }
       const self = this;
       this.run(config)
-        .then(dirgcode => {
-          if (typeof self._then === "function") self._then({ dirgcode, config });
-          if (self._typeInfo === "emitter") self.emit("complete", { dirgcode, config });
+        .then((result: saveFileResult) => {
+          if (typeof self._then === "function") self._then({ dirGCode: result.dirGCode, config });
+          if (self._typeInfo === "emitter") self.emit("complete", { dirGCode: result.dirGCode, config, gcode: result.gcode });
         })
         .catch(err => self.error(err));
     }
@@ -117,7 +117,7 @@ export class Main extends EventEmitter {
     });
   }
 
-  private analyze(config: ImgToGCode.Config, fulfill: (dirGCode: string) => void) {
+  private analyze(config: ImgToGCode.Config, fulfill: (result: saveFileResult) => void) {
     try {
       this.tick(0);
       let firstPixel: ImgToGCode.Pixel[][] = Analyze.getFirstPixel(this._img, this._pixel);
@@ -137,9 +137,9 @@ export class Main extends EventEmitter {
           );
           this.log("-> " + config.errBlackPixel + "% of black pixels unprocessed.");
           this.log("-> Accommodating gcode...");
-          File.save(this._gCode, config).then((dirGCode: string) => {
-            this.log("-> Sava As: " + dirGCode);
-            fulfill(dirGCode);
+          File.save(this._gCode, config).then((result: saveFileResult) => {
+            this.log("-> Sava As: " + result.dirGCode);
+            fulfill(result);
           });
           break;
         }

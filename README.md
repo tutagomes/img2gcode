@@ -35,6 +35,7 @@ img2gcode
   }).then((data) => {
     console.log(data.config);
     console.log(data.dirgcode);
+    console.log(data.gcode[0]);
   });
 ```
 

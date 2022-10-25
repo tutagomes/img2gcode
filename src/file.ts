@@ -81,7 +81,7 @@ class File {
         }
         self._gCodeInit.push("G21 ; Set units to mm", "G90 ; Absolute positioning");
         self.writeFile(dirgcode, self.concat(gcode, config).join("\n")).then(dirGCode => {
-          fulfill(dirGCode);
+          fulfill({dirGCode, gcode: [...self._gCodeInit]});
         });
       } catch (error) {
         reject(new Error("Something went wrong. :(.\n" + error));
@@ -108,3 +108,8 @@ class File {
     });
   }
 } // class
+
+export interface saveFileResult {
+  dirGCode: string
+  gcode: string[]
+}
