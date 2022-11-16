@@ -1,5 +1,5 @@
 {
-  "name": "img2gcode",
+  "name": "@tutagomes/img2gcode",
   "version": "1.2.0",
   "description": "convert jpg, png, gif to gcode with nodejs and jimp.",
   "main": "./src/index.js",
@@ -8,15 +8,14 @@
     "build": "tsc --project ./src",
     "start": "npm run build; npm runtest",
     "test": "node ./tests/test.js",
-    "prepack": "tsc --project ./src",
-    "postinstall": "tsc --project ./src"
+    "prepack": "tsc --project ./src"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/MaraniMatias/img2gcode.git"
+    "url": "git+https://github.com/tutagomes/img2gcode.git"
   },
-  "author": "Marani Matias Ezequiel",
-  "email": "maranimatias@gmail.com",
+  "author": "Arthur Faria",
+  "email": "arthurgomesfaria@gmail.com",
   "license": "MIT",
   "dependencies": {
     "jimp": "^0.16.1"
