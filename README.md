@@ -30,7 +30,7 @@ img2gcode
     whiteZ: 0,
     blackZ: -2,
     safeZ: 2,
-    gcodeFile: 'output', // Name of gcode output file. Must be provided for Buffered Image.
+    gcodeFile: 'output', // Name of gcode output file. If not provided, will not save the output, only returning the array when completed.
     image: __dirname + '/img-and-gcode/test.jpeg' // Or Buffer from base64 -> https://github.com/oliver-moran/jimp/issues/231
   }).then((data) => {
     console.log(data.config);
