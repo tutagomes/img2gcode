@@ -80,12 +80,13 @@ class File {
           );
         }
         self._gCodeInit.push("G21 ; Set units to mm", "G90 ; Absolute positioning");
+        const fullGCode = self.concat(gcode, config)
         if (config.gcodeFile) {
-          self.writeFile(dirgcode, self.concat(gcode, config).join("\n")).then(dirGCode => {
-            fulfill({dirGCode, gcode: [...self._gCodeInit, ...gcode]});
+          self.writeFile(dirgcode, fullGCode.join("\n")).then(dirGCode => {
+            fulfill({dirGCode, gcode: [...fullGCode]});
           });
         } else {
-          fulfill({dirGCode: null, gcode: [...self._gCodeInit, ...gcode]});
+          fulfill({dirGCode: null, gcode: [...fullGCode]});
         }
       } catch (error) {
         reject(new Error("Something went wrong. :(.\n" + error));
