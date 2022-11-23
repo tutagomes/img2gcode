@@ -99,7 +99,7 @@ export class Main extends EventEmitter {
       const self = this;
       this.run(config)
         .then((result: saveFileResult) => {
-          if (typeof self._then === "function") self._then({ dirGCode: result.dirGCode, config, gocde: result.gcode });
+          if (typeof self._then === "function") self._then({ dirGCode: result.dirGCode, config, gcode: result.gcode });
           if (self._typeInfo === "emitter") self.emit("complete", { dirGCode: result.dirGCode, config, gcode: result.gcode });
         })
         .catch(err => self.error(err));
